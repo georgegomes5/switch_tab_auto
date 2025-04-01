@@ -1,0 +1,1 @@
+Primeira atualização voltada para navegador Edge
