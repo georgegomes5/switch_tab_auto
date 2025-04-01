@@ -1,8 +1,18 @@
 import time
 from selenium import webdriver
+from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.firefox.options import Options
 
-# Inicializa o WebDriver do Edge
-driver = webdriver.Edge()
+# Configuração do Firefox no Ubuntu
+geckodriver_path = '/usr/local/bin/geckodriver'  # Certifique-se de que o geckodriver está instalado aqui
+
+# Opções do Firefox (opcional)
+firefox_options = Options()
+firefox_options.add_argument("--start-maximized")  # Já inicia maximizado
+
+# Inicializa o WebDriver do Firefox
+service = Service(executable_path=geckodriver_path)
+driver = webdriver.Firefox(service=service, options=firefox_options)
 
 # Lista de URLs para abrir como abas
 urls = [
@@ -17,9 +27,6 @@ urls = [
 # Abre cada URL em uma nova aba
 for url in urls:
     driver.execute_script(f"window.open('{url}', '_blank');")
-
-# Maximiza a janela para tela cheia
-driver.maximize_window()
 
 # Função para alternar entre todas as abas a cada 30 segundos
 def switch_tabs(interval):
